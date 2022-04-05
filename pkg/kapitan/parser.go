@@ -34,19 +34,22 @@ func parse(dir string) ([]*parsed, error) {
 			f, err := ioutil.ReadFile(path)
 			if err != nil {
 				log.Error(fmt.Errorf("Read file error: %w", err))
+				return err
 			}
 
 			// Yaml file content unmarshal
 			var node yaml.Node
 			err = yaml.Unmarshal(f, &node)
 			if err != nil {
-				log.Fatalf("Cannot unmarshal yaml: %v", err)
+				log.Error("Cannot unmarshal yaml: %v", err)
+				return err
 			}
 
 			// Get relative path from directory
 			p, err := filepath.Rel(dir, path)
 			if err != nil {
-				log.Fatalf("Cannot get relative path: %v", err)
+				log.Error("Cannot get relative path: %v", err)
+				return err
 			}
 			res = append(res, &parsed{path: p, info: &info, node: &node})
 		}

@@ -35,6 +35,7 @@ func main() {
 	if err != nil {
 		if !errors.Is(err, os.ErrNotExist) {
 			log.Error(fmt.Errorf("Read file error: %w", err))
+			os.Exit(1)
 		}
 	}
 
