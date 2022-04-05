@@ -79,7 +79,7 @@ func Walk(root yaml.Node, fn WalkFunc) error {
 // walk walks the yaml node, calling fn for each node in the tree, including
 // root. It also computes the nodes path in the file.
 func walk(root yaml.Node, path []string, fn WalkFunc) error {
-	for i := 0; i < len(root.Content); i++ {
+	for i := range root.Content {
 		node := root.Content[i]
 		if node.Kind == yaml.MappingNode && i > 0 {
 			path = append(path, root.Content[i-1].Value)
