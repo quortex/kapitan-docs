@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
+      IMAGE_NAME: kapitan-docs
       GCP_PROJECT_ID: quortex-registry-public
 
     steps:
@@ -39,24 +40,23 @@ jobs:
           fi && \
           echo "IMAGE_TAG=${IMAGE_TAG}" >> $GITHUB_ENV
 
-      # Build docker image
-      - name: Build docker images
-        run: make docker-build
-        env:
-          IMAGE_REPOSITORY: eu.gcr.io/${{ env.GCP_PROJECT_ID }}/kapitan-docs
-
       # Setup gcloud CLI
-      - name: Setup Gcloud CLI
-        uses: google-github-actions/setup-gcloud@v0.6.0
+      - uses: google-github-actions/setup-gcloud@v0.2.1
         with:
           service_account_key: ${{ secrets.GCP_SA_KEY }}
           project_id: ${{ env.GCP_PROJECT_ID }}
           export_default_credentials: true
 
-      # Push docker image to docker hub
-      - name: Push docker images
-        run: |
+      # Build docker image
+      - name: Build
+        run: |-
+          docker build -t eu.gcr.io/${{ env.GCP_PROJECT_ID }}/$IMAGE_NAME:$IMAGE_TAG .
+
+      # Configure docker to use the gcloud command-line tool as a credential helper
+      - run: |
           gcloud auth configure-docker -q
-          make docker-push
-        env:
-          IMAGE_REPOSITORY: eu.gcr.io/${{ env.GCP_PROJECT_ID }}/kapitan-docs
+
+      # Push image to Google Container Registry
+      - name: Push
+        run: |-
+          docker push eu.gcr.io/${{ env.GCP_PROJECT_ID }}/$IMAGE_NAME:$IMAGE_TAG
