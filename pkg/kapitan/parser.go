@@ -41,14 +41,14 @@ func parse(dir string) ([]*parsed, error) {
 			var node yaml.Node
 			err = yaml.Unmarshal(f, &node)
 			if err != nil {
-				log.Error("Cannot unmarshal yaml: %v", err)
+				log.Errorf("Cannot unmarshal yaml: %v", err)
 				return err
 			}
 
 			// Get relative path from directory
 			p, err := filepath.Rel(dir, path)
 			if err != nil {
-				log.Error("Cannot get relative path: %v", err)
+				log.Errorf("Cannot get relative path: %v", err)
 				return err
 			}
 			res = append(res, &parsed{path: p, info: &info, node: &node})
