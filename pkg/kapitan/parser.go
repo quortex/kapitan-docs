@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 
 	log "github.com/sirupsen/logrus"
+	"golang.org/x/exp/slices"
 	"gopkg.in/yaml.v3"
 )
 
@@ -92,5 +93,5 @@ func walk(root yaml.Node, path []string, fn WalkFunc) error {
 
 // isYaml returns if given file is a yaml file.
 func isYaml(info os.FileInfo) bool {
-	return !info.IsDir() && contains([]string{".yaml", ".yml"}, filepath.Ext(info.Name()))
+	return !info.IsDir() && slices.Contains([]string{".yaml", ".yml"}, filepath.Ext(info.Name()))
 }

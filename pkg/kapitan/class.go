@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	log "github.com/sirupsen/logrus"
+	"golang.org/x/exp/slices"
 	"gopkg.in/yaml.v3"
 )
 
@@ -134,7 +135,7 @@ func fillUsedBy(classes []Class) []Class {
 	res := make([]Class, len(classes))
 	for i, c := range classes {
 		for _, c2 := range classes {
-			if contains(c2.Uses, c.Name) {
+			if slices.Contains(c2.Uses, c.Name) {
 				c.UsedBy = append(c.UsedBy, c2.Name)
 			}
 		}

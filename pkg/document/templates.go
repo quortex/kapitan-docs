@@ -6,6 +6,7 @@ import (
 	"text/template"
 
 	"github.com/quortex/kapitan-docs/pkg/kapitan"
+	"golang.org/x/exp/slices"
 )
 
 // The defaultTemplate to use to render documentation.
@@ -72,7 +73,7 @@ func escaped(runes string, s string) string {
 	toesc := []rune(runes)
 	res := ""
 	for _, c := range s {
-		if contains(toesc, c) {
+		if slices.Contains(toesc, c) {
 			res += "\\"
 		}
 		res += string(c)
@@ -90,14 +91,4 @@ func classesWithPrefix(classes []kapitan.Class, prefix string) []kapitan.Class {
 		}
 	}
 	return res
-}
-
-// contains returns if given slice contains rune.
-func contains(runes []rune, r rune) bool {
-	for _, e := range runes {
-		if e == r {
-			return true
-		}
-	}
-	return false
 }

@@ -10,16 +10,6 @@ import (
 // documentation.
 const commentMark = "# --"
 
-// contains returns if given slice contains string.
-func contains(x []string, s string) bool {
-	for _, t := range x {
-		if t == s {
-			return true
-		}
-	}
-	return false
-}
-
 // extractComment extract comment from a given string. This function extracts
 // the comment mark at the beginning of the comment, as well as the character #
 // at the beginning of each line.
