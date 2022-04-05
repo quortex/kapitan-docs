@@ -70,3 +70,13 @@ Help Options:
 Arguments:
   Directory:           Kapitan project directory.
 ```
+
+### Using docker
+
+You can mount a Kapitan project under `/kapitan-docs` within the container.
+
+Then run:
+
+```bash
+docker run --rm --volume "$(pwd):/kapitan-docs" -u $(id -u) kapitan-docs:latest
+```
