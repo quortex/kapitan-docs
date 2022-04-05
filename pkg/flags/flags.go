@@ -27,8 +27,12 @@ func (l *LogLevel) MarshalFlag() (string, error) {
 
 // Options wraps all flags.
 type Options struct {
-	DryRun   bool     `long:"dry-run" short:"d" description:"Don't render any markdown file, just print in the console."`
-	LogLevel LogLevel `long:"log-level" short:"l" description:"Level of logs that should printed, one of (panic, fatal, error, warning, info, debug, trace)." default:"info"`
+	DryRun       bool     `long:"dry-run" short:"d" description:"Don't render any markdown file, just print in the console."`
+	LogLevel     LogLevel `long:"log-level" short:"l" description:"Level of logs that should printed, one of (panic, fatal, error, warning, info, debug, trace)." default:"error"`
+	TemplateFile string   `long:"template-file" short:"t" description:"gotemplate file path from which documentation will be generated." default:"README.md.gotmpl"`
+	Positional   struct {
+		Directory string `description:"Kapitan project directory." default:"."`
+	} `positional-args:"yes"`
 }
 
 // Parse parses flags into give Option.
