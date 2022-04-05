@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"text/template"
 
-	"github.com/Masterminds/sprig"
+	sprig "github.com/Masterminds/sprig/v3"
 	"github.com/quortex/kapitan-docs/pkg/kapitan"
 	log "github.com/sirupsen/logrus"
 )
