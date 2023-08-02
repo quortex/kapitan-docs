@@ -11,10 +11,15 @@ jobs:
   build-docker:
     name: Build docker image
     runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
 
     env:
       IMAGE_NAME: kapitan-docs
       GCP_PROJECT_ID: quortex-registry-public
+      WORKLOAD_IDENTITY_POOL: 'projects/724876838553/locations/global/workloadIdentityPools/github-oidc-pool/providers/github-oidc-provider'
+      SERVICE_ACCOUNT: 'github-kapitan-docs@quortex-admin.iam.gserviceaccount.com'
 
     steps:
       - name: Check out code
@@ -41,11 +46,12 @@ jobs:
           echo "IMAGE_TAG=${IMAGE_TAG}" >> $GITHUB_ENV
 
       # Setup gcloud CLI
-      - uses: google-github-actions/setup-gcloud@v0.2.1
+      - name: 'Authenticate to Google Cloud'
+        uses: 'google-github-actions/auth@v1'
         with:
-          service_account_key: ${{ secrets.GCP_SA_KEY }}
-          project_id: ${{ env.GCP_PROJECT_ID }}
-          export_default_credentials: true
+          token_format: 'access_token'
+          workload_identity_provider: ${{ env.WORKLOAD_IDENTITY_POOL }}
+          service_account: ${{ env.SERVICE_ACCOUNT }}
 
       # Build docker image
       - name: Build
