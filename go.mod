@@ -7,12 +7,11 @@ require (
 	github.com/jessevdk/go-flags v1.5.0
 	github.com/sirupsen/logrus v1.8.1
 	golang.org/x/exp v0.0.0-20220328175248-053ad81199eb
-	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b
+	gopkg.in/yaml.v3 v3.0.1
 )
 
 require (
 	github.com/Masterminds/goutils v1.1.1 // indirect
-	github.com/Masterminds/semver v1.5.0 // indirect
 	github.com/Masterminds/semver/v3 v3.1.1 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/huandu/xstrings v1.3.2 // indirect
