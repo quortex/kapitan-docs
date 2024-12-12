@@ -5,7 +5,7 @@ go 1.18
 require (
 	github.com/Masterminds/sprig/v3 v3.3.0
 	github.com/jessevdk/go-flags v1.6.1
-	github.com/sirupsen/logrus v1.8.1
+	github.com/sirupsen/logrus v1.9.3
 	golang.org/x/exp v0.0.0-20220328175248-053ad81199eb
 	gopkg.in/yaml.v3 v3.0.1
 )
